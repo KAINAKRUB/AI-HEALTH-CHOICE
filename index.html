@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI HEALTH CHOICE - Precision Lifestyle Integration</title>
+    <title>AI HEALTH CHOICE - Web Application Demo</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,731 +14,491 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Google Fonts: Noto Sans Thai -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Chosen Palette: Warm Neutrals with Teal & Orange Accents -->
-    <!-- 
-         Background: bg-stone-50 (Warm white)
-         Primary Text: text-stone-800
-         Accent 1 (Health/Trust): text-teal-600, bg-teal-600
-         Accent 2 (Energy/Action): text-orange-500, bg-orange-500
-    -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         body {
             font-family: 'Noto Sans Thai', sans-serif;
-            background-color: #fafaf9; /* stone-50 */
-            color: #292524; /* stone-800 */
+            background-color: #f3f4f6; /* gray-100 */
+            color: #1f2937; /* gray-800 */
         }
         
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
             height: 300px;
-            max-height: 400px;
         }
 
-        /* Custom Scrollbar for sleek look */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1; 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #d6d3d1; 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #a8a29e; 
+        .app-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            height: auto;
+            min-height: 500px;
         }
 
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
+        .main-tab-btn {
+            padding: 1rem;
+            border-bottom: 3px solid transparent;
+            color: #6b7280;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
         }
         
-        .transition-all-300 {
-            transition: all 0.3s ease-in-out;
+        .main-tab-active {
+            border-bottom-color: #0d9488;
+            color: #0d9488;
+            font-weight: 700;
+            background-color: #f0fdfa;
+        }
+        
+        .main-tab-btn:hover:not(.main-tab-active) {
+            color: #374151;
+            background-color: #f9fafb;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #0d9488;
+            color: #0d9488;
+            font-weight: 600;
+        }
+
+        .tab-inactive {
+            color: #6b7280;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .tab-inactive:hover {
+            color: #374151;
+        }
+
+        input[type="date"] {
+            appearance: none;
+            -webkit-appearance: none;
+            color: #374151;
+            font-family: 'Noto Sans Thai', sans-serif;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            padding: 0.5rem;
         }
     </style>
-
-    <!-- Application Structure Plan: 
-         1. Hero: Title and Core Value Prop.
-         2. Equality Engine: Concept explanation showing identical processing for different users.
-         3. Feature 1 (Micro-Step): Interactive input form generating "Tiny Tasks".
-         4. Feature 2 (Success Viz): Dashboard with Chart.js showing streaks and predictive text.
-         5. Feature 3 (Clinical Reminder): Chart comparing notification noise and a high-priority timeline.
-         Why: This flow moves from "Concept" to "Action" to "Result" to "Maintenance", mirroring the user journey.
-    -->
-    
-    <!-- Visualization & Content Choices:
-         1. Micro-Step Logic: Simple JS object mapping inputs to text outputs.
-         2. Success Chart: Chart.js Line chart to visualize 'Momentum' over time.
-         3. Notification Chart: Chart.js Bar chart to compare 'Noise' vs 'Value'.
-         4. NO SVG/Mermaid used. FontAwesome used for icons.
-    -->
-    
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
-<body class="antialiased selection:bg-teal-100 selection:text-teal-800">
+<body class="bg-gray-50">
 
-    <!-- Navigation / Header -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center gap-2">
-                    <i class="fa-solid fa-dna text-teal-600 text-2xl"></i>
-                    <span class="font-bold text-xl tracking-tight text-stone-800">AI HEALTH CHOICE</span>
+    <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-lg flex items-center justify-center text-white shadow-lg">
+                        <i class="fa-solid fa-dna text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-xl text-gray-900 tracking-tight leading-none">AI HEALTH CHOICE</h1>
+                        <span class="text-xs text-gray-500 font-medium">Precision Lifestyle Platform</span>
+                    </div>
                 </div>
-                <div class="hidden md:flex space-x-8 text-sm font-medium text-stone-600">
-                    <a href="#concept" class="hover:text-teal-600 transition-colors">Equality Engine</a>
-                    <a href="#micro-step" class="hover:text-teal-600 transition-colors">Micro-Steps</a>
-                    <a href="#dashboard" class="hover:text-teal-600 transition-colors">Success Viz</a>
-                    <a href="#clinical" class="hover:text-teal-600 transition-colors">Clinical Sync</a>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden border-2 border-white shadow-sm">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User Profile">
+                    </div>
                 </div>
-                <button class="bg-stone-800 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-stone-700 transition-all shadow-md">
-                    เริ่มต้นใช้งาน
-                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative overflow-hidden pt-16 pb-24 lg:pt-32 lg:pb-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <span class="inline-block py-1 px-3 rounded-full bg-orange-100 text-orange-600 text-xs font-semibold tracking-wide uppercase mb-4">
-                Precision Lifestyle Integration System
-            </span>
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-stone-900 leading-tight mb-6">
-                ระบบบูรณาการสุขภาพ<br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-emerald-500">
-                    ที่พอดีกับชีวิตจริง
-                </span>
-            </h1>
-            <p class="max-w-2xl mx-auto text-lg sm:text-xl text-stone-600 mb-10 leading-relaxed">
-                เปลี่ยนข้อจำกัดเฉพาะตัวของคุณ ให้กลายเป็นแนวทางปฏิบัติที่ทำได้จริง 
-                ด้วย AI ที่ออกแบบ "ภารกิจจิ๋ว" ให้สอดคล้องกับวิถีชีวิต 
-                เพื่อสุขภาพที่ดีที่เข้าถึงได้ง่ายและยั่งยืน
-            </p>
-            <div class="flex justify-center gap-4">
-                <a href="#micro-step" class="px-8 py-3 rounded-lg bg-teal-600 text-white font-semibold shadow-lg hover:bg-teal-700 hover:shadow-xl transition-all transform hover:-translate-y-0.5">
-                    ทดลองสร้างภารกิจ
-                </a>
-                <a href="#concept" class="px-8 py-3 rounded-lg bg-white text-stone-700 font-semibold border border-stone-200 shadow-sm hover:bg-stone-50 transition-all">
-                    เรียนรู้เพิ่มเติม
-                </a>
-            </div>
-        </div>
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         
-        <!-- Decorative bg blobs -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 opacity-30 pointer-events-none">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-teal-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-            <div class="absolute top-20 right-10 w-72 h-72 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-            <div class="absolute -bottom-8 left-1/2 w-72 h-72 bg-stone-200 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
+        <div class="mb-6 text-center md:text-left">
+            <h2 class="text-2xl font-bold text-gray-800">ยินดีต้อนรับ, คุณสมชาย</h2>
+            <p class="text-gray-600">เลือกฟังก์ชันที่คุณต้องการใช้งาน</p>
         </div>
-    </header>
 
-    <!-- Section 1: Equality Engine (Concept) -->
-    <section id="concept" class="py-20 bg-white border-y border-stone-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-stone-900 mb-4">1. Constraint-Based Recommendation</h2>
-                <p class="text-stone-600 max-w-3xl mx-auto">
-                    หัวใจสำคัญคือ <strong>"Equality Engine"</strong> ระบบปฏิบัติกับทุกคนเท่าเทียมกัน ไม่ว่าจะเป็นผู้ป่วย NCDs หรือคนทั่วไป 
-                    เพราะทุกคนคือ "User ที่มีข้อจำกัดเฉพาะตัว" AI จะประมวลผลหา <strong>Safe Zone</strong> ที่ปลอดภัยและทำได้จริง
-                </p>
+        <div class="flex overflow-x-auto bg-white rounded-t-xl border border-gray-200 shadow-sm mb-6">
+            <button onclick="switchMainTab('microstep')" id="btn-main-microstep" class="main-tab-btn main-tab-active flex-1 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Micro-Step Generator
+            </button>
+            <button onclick="switchMainTab('success')" id="btn-main-success" class="main-tab-btn flex-1 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-chart-line"></i> Success Viz
+            </button>
+            <button onclick="switchMainTab('clinical')" id="btn-main-clinical" class="main-tab-btn flex-1 flex items-center justify-center gap-2">
+                <i class="fa-solid fa-user-doctor"></i> Clinical Sync
+            </button>
+        </div>
+
+        <div class="relative min-h-[600px]">
+
+            <!-- TAB 1: Micro-Step Generator -->
+            <div id="section-microstep" class="app-card w-full animate-fade-in">
+                <div class="p-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                            <i class="fa-solid fa-wand-magic-sparkles text-teal-600"></i>
+                            สร้างภารกิจจิ๋วตามข้อจำกัด
+                        </h3>
+                        <p class="text-sm text-gray-500">ระบบ AI วิเคราะห์และออกแบบกิจกรรมที่เหมาะสมกับคุณที่สุด</p>
+                    </div>
+                    <span class="bg-teal-100 text-teal-700 text-xs px-3 py-1 rounded-full font-bold uppercase">AI Core</span>
+                </div>
+                
+                <div class="p-8 flex flex-col gap-6">
+                    <!-- Equality Engine Inputs: Chronic Disease -->
+                    <div class="space-y-3">
+                        <label class="text-base font-semibold text-gray-700 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-stone-200 text-stone-600 flex items-center justify-center text-xs">1</span>
+                            โรคประจำตัว (Equality Engine)
+                        </label>
+                        <select id="user-profile" class="w-full text-base p-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500">
+                            <option value="diabetes">1 โรคเบาหวาน (Diabetes Mellitus)</option>
+                            <option value="hbp">2 โรคความดันโลหิตสูง (Hypertension)</option>
+                            <option value="cvd">3 โรคหลอดเลือดหัวใจและสมอง (Cardiovascular & Cerebrovascular Diseases)</option>
+                            <option value="none">4 ไม่มีโรค (none)</option>
+                        </select>
+                    </div>
+
+                    <!-- Constraints section -->
+                    <div class="space-y-3">
+                        <label class="text-base font-semibold text-gray-700 flex items-center gap-2">
+                            <span class="w-6 h-6 rounded-full bg-stone-200 text-stone-600 flex items-center justify-center text-xs">2</span>
+                            ข้อจำกัด (Real Constraints)
+                        </label>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <button onclick="selectConstraint(this, 'cook')" class="constraint-chip p-4 border rounded-xl hover:bg-gray-100 text-gray-600 transition-all text-center flex flex-col items-center gap-2">
+                                <i class="fa-solid fa-utensils text-xl"></i> 
+                                <span class="text-sm font-medium leading-tight">1 ไม่สะดวกทำอาหาร</span>
+                            </button>
+                            <button onclick="selectConstraint(this, 'time')" class="constraint-chip p-4 border rounded-xl hover:bg-gray-100 text-gray-600 transition-all text-center flex flex-col items-center gap-2">
+                                <i class="fa-solid fa-clock text-xl"></i> 
+                                <span class="text-sm font-medium leading-tight">2 ไม่ค่อยมีเวลา</span>
+                            </button>
+                            <button onclick="selectConstraint(this, 'space')" class="constraint-chip p-4 border rounded-xl hover:bg-gray-100 text-gray-600 transition-all text-center flex flex-col items-center gap-2">
+                                <i class="fa-solid fa-expand-arrows-alt text-xl"></i> 
+                                <span class="text-sm font-medium leading-tight">3 พื้นที่ไม่อำนวย</span>
+                            </button>
+                            <button onclick="selectConstraint(this, 'energy')" class="constraint-chip p-4 border rounded-xl hover:bg-gray-100 text-gray-600 transition-all text-center flex flex-col items-center gap-2">
+                                <i class="fa-solid fa-battery-quarter text-xl"></i> 
+                                <span class="text-sm font-medium leading-tight">4 เหนื่อยล้า</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <button onclick="generateMission()" class="w-full bg-stone-800 hover:bg-stone-900 text-white font-medium py-4 rounded-xl shadow-lg transition-all flex justify-center items-center gap-2 group text-lg">
+                            <i class="fa-solid fa-bolt text-yellow-400 group-hover:animate-pulse"></i> 
+                            Generate Mission (คำนวณภารกิจ)
+                        </button>
+                    </div>
+
+                    <div id="mission-result" class="hidden mt-4 p-6 bg-teal-50 border border-teal-100 rounded-xl relative overflow-hidden transition-all duration-500 transform scale-95 opacity-0">
+                        <div class="absolute -right-6 -top-6 text-teal-100 text-8xl opacity-50"><i class="fa-solid fa-check-circle"></i></div>
+                        <h4 class="text-base font-bold text-teal-800 uppercase tracking-wide mb-2">ภารกิจวันนี้ของคุณ</h4>
+                        <p id="mission-text" class="text-gray-800 font-bold text-xl leading-relaxed mb-4 border-l-4 border-teal-500 pl-4">...</p>
+                        <div class="flex items-center gap-2 text-sm text-orange-600 font-semibold bg-white/60 p-3 rounded-lg inline-block shadow-sm">
+                            <i class="fa-solid fa-arrow-trend-up"></i> <span id="mission-benefit">...</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Interactive Concept Visualizer -->
-            <div class="bg-stone-50 rounded-2xl p-8 shadow-inner border border-stone-200">
-                <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
-                    
-                    <!-- Left: User Toggle -->
-                    <div class="w-full md:w-1/3 space-y-4">
-                        <h3 class="text-sm font-bold text-stone-400 uppercase tracking-wider mb-2">เลือกโปรไฟล์จำลอง</h3>
-                        <div class="flex flex-col gap-3">
-                            <button onclick="setPersona('patient')" id="btn-patient" class="flex items-center gap-4 p-4 rounded-xl border-2 border-teal-500 bg-white shadow-md transition-all text-left">
-                                <div class="w-12 h-12 rounded-full bg-teal-100 flex items-center justify-center text-teal-600 text-xl">
-                                    <i class="fa-solid fa-user-injured"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-stone-800">ผู้ป่วย NCDs</div>
-                                    <div class="text-xs text-stone-500">มีข้อจำกัดทางแพทย์</div>
-                                </div>
-                            </button>
-                            <button onclick="setPersona('general')" id="btn-general" class="flex items-center gap-4 p-4 rounded-xl border-2 border-transparent hover:border-stone-300 bg-white shadow-sm transition-all text-left opacity-60">
-                                <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 text-xl">
-                                    <i class="fa-solid fa-user-clock"></i>
-                                </div>
-                                <div>
-                                    <div class="font-bold text-stone-800">บุคคลทั่วไป</div>
-                                    <div class="text-xs text-stone-500">มีข้อจำกัดด้านเวลา/งาน</div>
-                                </div>
-                            </button>
-                        </div>
+            <!-- TAB 2: Success Visualization -->
+            <div id="section-success" class="app-card w-full hidden animate-fade-in">
+                <div class="p-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-orange-500"></i>
+                            Success Visualization
+                        </h3>
+                        <p class="text-sm text-gray-500">กราฟวินัย & โมเมนตัมความสำเร็จ</p>
+                    </div>
+                    <div class="flex items-center gap-1 bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">
+                        <i class="fa-solid fa-fire"></i> Streak: 5 Days
+                    </div>
+                </div>
+
+                <div class="p-8 flex flex-col gap-6">
+                    <div class="chart-container bg-white rounded-xl p-2">
+                        <canvas id="consistencyChart"></canvas>
                     </div>
 
-                    <!-- Center: The Process (Static) -->
-                    <div class="hidden md:flex flex-col items-center text-stone-400">
-                        <i class="fa-solid fa-arrow-right text-2xl animate-pulse"></i>
-                        <span class="text-xs font-mono mt-2">PROCESS</span>
-                    </div>
-
-                    <!-- Right: The AI Engine Output -->
-                    <div class="w-full md:w-1/2 bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden">
-                        <div class="bg-stone-900 text-white px-6 py-3 flex justify-between items-center">
-                            <span class="text-sm font-mono"><i class="fa-solid fa-microchip mr-2"></i>AI Processing Core</span>
-                            <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center shadow-sm">
+                            <div class="text-sm text-gray-500 mb-1">Overall Level</div>
+                            <div class="text-3xl font-bold text-stone-800">Lv. 3</div>
+                            <div class="text-xs text-teal-600 font-bold uppercase mt-1 tracking-wider">Master Class</div>
                         </div>
-                        <div class="p-6 space-y-4">
-                            <!-- Dynamic Content -->
-                            <div>
-                                <div class="text-xs font-bold text-stone-400 uppercase mb-1">Detected Constraints (Inputs)</div>
-                                <div id="persona-constraints" class="flex flex-wrap gap-2">
-                                    <!-- JS will populate -->
-                                </div>
+                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-100 text-center shadow-sm">
+                            <div class="text-sm text-gray-500 mb-1">Consistency Score</div>
+                            <div class="text-3xl font-bold text-stone-800">85%</div>
+                            <div class="text-xs text-green-600 font-bold mt-1">
+                                <i class="fa-solid fa-caret-up"></i> +12% vs last week
                             </div>
-                            <hr class="border-stone-100">
+                        </div>
+                    </div>
+
+                    <div class="mt-auto bg-stone-800 text-white p-6 rounded-xl relative shadow-lg">
+                        <i class="fa-solid fa-quote-left text-stone-600 absolute top-4 left-4 text-2xl"></i>
+                        <div class="text-xs font-bold text-teal-400 uppercase mb-2 pl-8 tracking-widest">AI Predictive Insight</div>
+                        <p class="text-sm md:text-base leading-relaxed pl-8 text-stone-200">
+                            "จากกราฟความสม่ำเสมอในสัปดาห์นี้ ระบบวิเคราะห์ว่าสุขภาพของคุณกำลังปรับตัวไปในทิศทางที่ดีขึ้นอย่างต่อเนื่อง"
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Clinical Sync -->
+            <div id="section-clinical" class="app-card w-full hidden border-t-4 border-t-blue-500 animate-fade-in">
+                <div class="p-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex justify-between items-center">
+                    <div>
+                        <h3 class="font-bold text-lg text-gray-800 flex items-center gap-2">
+                            <i class="fa-solid fa-user-doctor text-blue-500"></i>
+                            Clinical Sync
+                        </h3>
+                        <p class="text-sm text-gray-500">ระบบจัดการนัดหมายอัจฉริยะ</p>
+                    </div>
+                    <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-bold uppercase">Priority Only</span>
+                </div>
+
+                <div class="flex-grow flex flex-col">
+                    <div class="flex border-b border-gray-200 bg-gray-50">
+                        <button onclick="switchSubTab('doctor')" id="tab-doctor" class="flex-1 py-4 text-sm font-medium text-center tab-active transition-colors hover:bg-white">
+                            <i class="fa-solid fa-stethoscope mr-2"></i> นัดแพทย์
+                        </button>
+                        <button onclick="switchSubTab('lab')" id="tab-lab" class="flex-1 py-4 text-sm font-medium text-center tab-inactive transition-colors hover:bg-white">
+                            <i class="fa-solid fa-vial mr-2"></i> เจาะเลือด/แล็บ
+                        </button>
+                    </div>
+
+                    <div id="content-doctor" class="p-8 space-y-6">
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 uppercase">วันที่พบแพทย์ล่าสุด</label>
+                            <input type="date" id="doc-last-date" class="w-full bg-white border border-gray-300 rounded-lg text-base p-3 focus:ring-blue-500 focus:border-blue-500 shadow-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 uppercase">กลุ่มอาการ/โรค</label>
+                            <select id="doc-condition" class="w-full bg-white border border-gray-300 rounded-lg text-base p-3 shadow-sm">
+                                <option value="stable">อาการทั่วไป / คงที่ (3 เดือน)</option>
+                                <option value="unstable">อาการไม่คงที่ / ปรับยา (1 เดือน)</option>
+                                <option value="urgent">ติดตามผลด่วน (2 สัปดาห์)</option>
+                            </select>
+                        </div>
+                        <button onclick="calculateNextAppt('doctor')" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 rounded-lg shadow-md text-base transition-all mt-4">
+                            AI คำนวณวันนัดถัดไป
+                        </button>
+                    </div>
+
+                    <div id="content-lab" class="p-8 space-y-6 hidden">
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 uppercase">วันที่เจาะเลือดล่าสุด</label>
+                            <input type="date" id="lab-last-date" class="w-full bg-white border border-gray-300 rounded-lg text-base p-3 focus:ring-blue-500 focus:border-blue-500 shadow-sm">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-bold text-gray-700 uppercase">ประเภทการตรวจ</label>
+                            <select id="lab-type" class="w-full bg-white border border-gray-300 rounded-lg text-base p-3 shadow-sm">
+                                <option value="diabetes">เบาหวาน (HbA1c)</option>
+                                <option value="lipid">ไขมันในเลือด (Lipid Profile)</option>
+                                <option value="kidney">ค่าไต (Kidney Function)</option>
+                                <option value="general">ตรวจสุขภาพประจำปี</option>
+                            </select>
+                        </div>
+                        <button onclick="calculateNextAppt('lab')" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 rounded-lg shadow-md text-base transition-all mt-4">
+                            AI คำนวณวันเจาะเลือด
+                        </button>
+                    </div>
+
+                    <div id="appt-result" class="mx-8 mb-8 p-6 bg-gray-800 rounded-xl hidden transition-all">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Estimated Appointment</span>
+                            <span id="appt-badge" class="px-3 py-1 bg-blue-500 text-white text-xs rounded-full font-bold">NEXT</span>
+                        </div>
+                        <div class="text-3xl font-bold text-white mb-2" id="appt-date-display">--/--/----</div>
+                        <p class="text-sm text-gray-300 mb-4" id="appt-note">...</p>
+                        
+                        <div class="pt-4 border-t border-gray-700 flex gap-3">
+                            <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center flex-shrink-0">
+                                <i class="fa-solid fa-triangle-exclamation text-yellow-500 text-sm"></i>
+                            </div>
                             <div>
-                                <div class="text-xs font-bold text-teal-600 uppercase mb-1">Safe Zone Algorithm Result</div>
-                                <p id="persona-result" class="text-stone-800 font-medium leading-relaxed">
-                                    <!-- JS will populate -->
+                                <p class="text-xs text-gray-400 uppercase font-bold mb-1">คำแนะนำเตรียมตัว</p>
+                                <p class="text-sm text-gray-200 leading-tight" id="appt-prep">
+                                    ระบบจะแจ้งเตือนล่วงหน้า 3 วันก่อนถึงกำหนด
                                 </p>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Section 2: Micro-Step Generator (Interactive) -->
-    <section id="micro-step" class="py-20 bg-stone-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                
-                <!-- Description -->
-                <div>
-                    <span class="text-orange-500 font-bold text-sm tracking-wider uppercase mb-2 block">ฟังก์ชันหลักที่ 1</span>
-                    <h2 class="text-3xl font-bold text-stone-900 mb-6">Micro-Step Generator</h2>
-                    <p class="text-lg text-stone-600 mb-6">
-                        ระบบเปลี่ยนคำแนะนำกว้างๆ ให้เป็น <strong>"ภารกิจจิ๋ว" (Tiny Tasks)</strong> ที่แทรกซึมไปกับกิจวัตรเดิม 
-                        เพื่อให้ผู้ใช้งานตระหนักและปรับตัวได้โดยไม่รู้สึกเป็นภาระ
-                    </p>
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-check-circle text-teal-600 mt-1 mr-3"></i>
-                            <span class="text-stone-700"><strong>วิเคราะห์ข้อจำกัดจริง:</strong> งบประมาณ, เวลา, สภาพแวดล้อม</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-check-circle text-teal-600 mt-1 mr-3"></i>
-                            <span class="text-stone-700"><strong>ออกแบบทางเลือก:</strong> ไม่ห้ามทำ แต่แนะนำวิธีทำที่ดีกว่า</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-check-circle text-teal-600 mt-1 mr-3"></i>
-                            <span class="text-stone-700"><strong>เน้นความยั่งยืน:</strong> เริ่มต้นง่าย ทำได้ทุกวัน</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Interactive App Simulator -->
-                <div class="bg-white rounded-3xl shadow-xl p-6 sm:p-8 border border-stone-200">
-                    <h3 class="text-xl font-bold text-stone-800 mb-6 border-b pb-4">จำลองการสร้างภารกิจรายคน</h3>
-                    
-                    <div class="space-y-6">
-                        <!-- Input Group 1 -->
-                        <div>
-                            <label class="block text-sm font-medium text-stone-700 mb-2">เป้าหมาย/เงื่อนไขสุขภาพ</label>
-                            <select id="sim-health" class="w-full rounded-lg border-stone-300 bg-stone-50 p-3 text-stone-700 focus:ring-2 focus:ring-teal-500 outline-none border">
-                                <option value="hbp">โรคความดันโลหิตสูง (ต้องลดเค็ม)</option>
-                                <option value="diabetes">โรคเบาหวาน (ต้องคุมน้ำตาล)</option>
-                                <option value="weight">คนทั่วไป (อยากคุมน้ำหนัก)</option>
-                                <option value="office">คนทำงานออฟฟิศ (ปวดหลัง/ไม่มีเวลา)</option>
-                            </select>
-                        </div>
-
-                        <!-- Input Group 2 -->
-                        <div>
-                            <label class="block text-sm font-medium text-stone-700 mb-2">ข้อจำกัดในชีวิตจริง (Real Life Constraints)</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <button onclick="toggleConstraint(this, 'budget')" class="constraint-btn p-2 border rounded-lg text-sm text-center hover:bg-stone-50 text-stone-600 border-stone-200">
-                                    <i class="fa-solid fa-wallet mr-1"></i> งบน้อย
-                                </button>
-                                <button onclick="toggleConstraint(this, 'time')" class="constraint-btn p-2 border rounded-lg text-sm text-center hover:bg-stone-50 text-stone-600 border-stone-200">
-                                    <i class="fa-solid fa-clock mr-1"></i> เวลาน้อย/เร่งรีบ
-                                </button>
-                                <button onclick="toggleConstraint(this, 'space')" class="constraint-btn p-2 border rounded-lg text-sm text-center hover:bg-stone-50 text-stone-600 border-stone-200">
-                                    <i class="fa-solid fa-house-chimney-window mr-1"></i> พื้นที่จำกัด
-                                </button>
-                                <button onclick="toggleConstraint(this, 'social')" class="constraint-btn p-2 border rounded-lg text-sm text-center hover:bg-stone-50 text-stone-600 border-stone-200">
-                                    <i class="fa-solid fa-users mr-1"></i> ติดสังคม/กินเลี้ยง
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Generate Button -->
-                        <button onclick="generateMicroStep()" class="w-full bg-stone-900 hover:bg-stone-800 text-white py-3 rounded-xl font-semibold transition-all shadow-lg flex justify-center items-center gap-2">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                            AI คำนวณภารกิจจิ๋ว
-                        </button>
-
-                        <!-- Result Card -->
-                        <div id="result-card" class="hidden transform transition-all duration-500">
-                            <div class="bg-gradient-to-br from-teal-50 to-emerald-50 border border-teal-100 rounded-xl p-5 relative overflow-hidden">
-                                <div class="absolute top-0 right-0 p-2 opacity-10">
-                                    <i class="fa-solid fa-medal text-6xl text-teal-600"></i>
-                                </div>
-                                <div class="text-xs font-bold text-teal-600 uppercase tracking-widest mb-1">YOUR DAILY MISSION</div>
-                                <h4 id="mission-title" class="text-lg font-bold text-stone-800 mb-2">ชื่อภารกิจ...</h4>
-                                <p id="mission-desc" class="text-sm text-stone-600 mb-3">คำอธิบาย...</p>
-                                <div class="flex items-center gap-2 text-xs font-semibold text-orange-600 bg-white/60 p-2 rounded inline-block">
-                                    <i class="fa-solid fa-fire"></i> <span id="mission-benefit">Benefit...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 3: Behavioral Success Visualization -->
-    <section id="dashboard" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12 text-center md:text-left">
-                <span class="text-orange-500 font-bold text-sm tracking-wider uppercase mb-2 block">ฟังก์ชันหลักที่ 2</span>
-                <h2 class="text-3xl font-bold text-stone-900">Behavioral Success Visualization</h2>
-                <p class="text-stone-600 mt-2 max-w-2xl">
-                    เปลี่ยนการโฟกัสจากตัวเลขการแพทย์ที่เครียด เป็น <strong>"กราฟวินัย" (Success Graph)</strong> 
-                    และ <strong>"Psychological Momentum"</strong> เพื่อสร้างกำลังใจ
-                </p>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-8">
-                <!-- Dashboard Control Panel -->
-                <div class="lg:col-span-1 bg-stone-50 p-6 rounded-2xl border border-stone-200">
-                    <h3 class="font-bold text-stone-800 mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-sliders"></i> จำลองพฤติกรรม
-                    </h3>
-                    <p class="text-sm text-stone-500 mb-6">กดปุ่มเพื่อจำลองผลลัพธ์ของการทำภารกิจสำเร็จต่อเนื่องในแต่ละสัปดาห์</p>
-                    
-                    <div class="space-y-3">
-                        <button onclick="updateChart(1)" class="w-full text-left p-3 rounded-lg bg-white border border-stone-200 hover:border-teal-500 hover:text-teal-600 transition-all flex justify-between group">
-                            <span>สัปดาห์ที่ 1: เริ่มต้นดี</span>
-                            <span class="group-hover:translate-x-1 transition-transform"><i class="fa-solid fa-play"></i></span>
-                        </button>
-                        <button onclick="updateChart(2)" class="w-full text-left p-3 rounded-lg bg-white border border-stone-200 hover:border-teal-500 hover:text-teal-600 transition-all flex justify-between group">
-                            <span>สัปดาห์ที่ 2: มีหลุดบ้าง</span>
-                            <span class="group-hover:translate-x-1 transition-transform"><i class="fa-solid fa-play"></i></span>
-                        </button>
-                        <button onclick="updateChart(3)" class="w-full text-left p-3 rounded-lg bg-white border border-stone-200 hover:border-teal-500 hover:text-teal-600 transition-all flex justify-between group">
-                            <span>สัปดาห์ที่ 3: กลับมาตั้งใจ</span>
-                            <span class="group-hover:translate-x-1 transition-transform"><i class="fa-solid fa-play"></i></span>
-                        </button>
-                        <button onclick="updateChart(4)" class="w-full text-left p-3 rounded-lg bg-white border border-stone-200 hover:border-teal-500 hover:text-teal-600 transition-all flex justify-between group">
-                            <span>สัปดาห์ที่ 4: เป็นนิสัยถาวร</span>
-                            <span class="group-hover:translate-x-1 transition-transform"><i class="fa-solid fa-play"></i></span>
-                        </button>
-                    </div>
-
-                    <div class="mt-8 p-4 bg-teal-900 rounded-xl text-white">
-                        <div class="text-xs text-teal-300 uppercase font-bold mb-2">AI Predictive Insights</div>
-                        <p id="predictive-text" class="text-sm italic">"กำลังรอข้อมูลพฤติกรรมของคุณ..."</p>
-                    </div>
-                </div>
-
-                <!-- Chart Area -->
-                <div class="lg:col-span-2 bg-white border border-stone-200 rounded-2xl p-6 shadow-sm relative">
-                    <div class="flex justify-between items-center mb-6">
-                        <h4 class="font-bold text-stone-700">Overall Level & Consistency</h4>
-                        <span id="level-badge" class="px-3 py-1 bg-stone-200 text-stone-600 rounded-full text-xs font-bold uppercase">Level 1</span>
-                    </div>
-                    
-                    <!-- Chart Container with responsive control -->
-                    <div class="chart-container">
-                        <canvas id="successChart"></canvas>
-                    </div>
-
-                    <!-- Streak Display -->
-                    <div class="mt-6 flex items-center justify-between border-t border-stone-100 pt-4">
-                        <div class="text-sm text-stone-500">Current Streak</div>
-                        <div class="flex gap-1" id="streak-container">
-                            <div class="w-3 h-8 bg-stone-200 rounded-sm"></div>
-                            <div class="w-3 h-8 bg-stone-200 rounded-sm"></div>
-                            <div class="w-3 h-8 bg-stone-200 rounded-sm"></div>
-                            <div class="w-3 h-8 bg-stone-200 rounded-sm"></div>
-                            <div class="w-3 h-8 bg-stone-200 rounded-sm"></div>
-                            <div class="w-3 h-8 bg-stone-200 rounded-sm"></div>
-                            <div class="w-3 h-8 bg-stone-200 rounded-sm"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 4: Clinical Reminder -->
-    <section id="clinical" class="py-20 bg-stone-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-16">
-                <!-- Concept Info -->
-                <div class="flex flex-col justify-center">
-                    <span class="text-teal-400 font-bold text-sm tracking-wider uppercase mb-2 block">ฟังก์ชันหลักที่ 3</span>
-                    <h2 class="text-3xl font-bold mb-6">Smart Clinical Sync</h2>
-                    <p class="text-stone-300 text-lg mb-8">
-                        <strong>Low Noise, High Value.</strong> เราไม่รบกวนชีวิตประจำวันของคุณ 
-                        ระบบแจ้งเตือนเฉพาะเหตุการณ์สำคัญ (High Priority) เช่น วันเจาะเลือด หรือนัดแพทย์ 
-                        เพื่อลด Notification Fatigue
-                    </p>
-                    
-                    <div class="bg-stone-800 p-6 rounded-xl border border-stone-700">
-                        <h4 class="text-white font-bold mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-chart-simple text-orange-500"></i> ปริมาณการแจ้งเตือน (ต่อเดือน)
-                        </h4>
-                        <!-- Chart Container for Comparison -->
-                        <div class="chart-container" style="height: 200px;">
-                            <canvas id="notificationChart"></canvas>
-                        </div>
-                        <div class="mt-4 text-xs text-stone-400 text-center">
-                            *เทียบระหว่างแอปทั่วไป (สีเทา) vs AI Health Choice (สีส้ม)
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Timeline Visualizer -->
-                <div class="relative">
-                    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-stone-700"></div>
-                    
-                    <h3 class="text-xl font-bold text-white mb-8 pl-8">ตัวอย่างการแจ้งเตือน (เดือนนี้)</h3>
-                    
-                    <div class="space-y-8">
-                        <!-- Event 1 (Low Priority - Hidden/Silent) -->
-                        <div class="flex gap-6 opacity-40 hover:opacity-100 transition-opacity">
-                            <div class="relative z-10 w-16 text-right text-sm text-stone-500 pt-2">Week 1</div>
-                            <div class="w-full bg-stone-800 p-4 rounded-lg border border-stone-700 border-dashed">
-                                <div class="text-xs text-stone-500 uppercase mb-1">Background Process</div>
-                                <div class="text-stone-400 text-sm">บันทึกพฤติกรรมรายวัน (Silent)</div>
-                            </div>
-                        </div>
-
-                        <!-- Event 2 (High Priority) -->
-                        <div class="flex gap-6">
-                            <div class="relative z-10 w-16 text-right text-sm text-teal-400 font-bold pt-2">14 ก.พ.</div>
-                            <div class="w-full bg-teal-900/30 p-4 rounded-lg border-l-4 border-teal-500 shadow-[0_0_15px_rgba(20,184,166,0.1)]">
-                                <div class="flex justify-between items-start mb-1">
-                                    <div class="text-xs text-teal-400 uppercase font-bold tracking-wider">
-                                        <i class="fa-solid fa-bell mr-1"></i> Smart Reminder
-                                    </div>
-                                    <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full">Critical</span>
-                                </div>
-                                <h4 class="font-bold text-white mb-1">พรุ่งนี้มีนัดเจาะเลือด</h4>
-                                <p class="text-stone-300 text-sm">กรุณางดน้ำและอาหารหลัง 20:00 น. วันนี้ เพื่อผลตรวจที่แม่นยำ</p>
-                            </div>
-                        </div>
-
-                        <!-- Event 3 (Predictive) -->
-                        <div class="flex gap-6">
-                            <div class="relative z-10 w-16 text-right text-sm text-orange-400 font-bold pt-2">28 ก.พ.</div>
-                            <div class="w-full bg-stone-800 p-4 rounded-lg border border-stone-600 hover:border-orange-500 transition-colors cursor-pointer">
-                                <div class="text-xs text-orange-400 uppercase font-bold mb-1">
-                                    <i class="fa-solid fa-calendar-check mr-1"></i> Predictive Lab
-                                </div>
-                                <h4 class="font-bold text-white mb-1">ครบกำหนดตรวจสุขภาพฟัน</h4>
-                                <p class="text-stone-400 text-sm">AI คำนวณจากประวัติล่าสุด (6 เดือนที่แล้ว) แนะนำให้นัดหมายภายในสัปดาห์นี้</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex justify-center items-center gap-2 mb-4">
-                <i class="fa-solid fa-dna text-teal-600"></i>
-                <span class="font-bold text-stone-200">AI HEALTH CHOICE</span>
-            </div>
-            <p class="text-sm mb-6">National Competition Project Proposal</p>
-            <div class="text-xs text-stone-600">
-                &copy; 2024 Precision Lifestyle Integration Platform. All rights reserved.
-            </div>
-        </div>
+    <footer class="mt-8 py-6 text-center text-gray-400 text-xs border-t border-gray-200 bg-white">
+        <p>&copy; 2024 AI Health Choice. Precision Lifestyle Integration Platform.</p>
     </footer>
 
-    <!-- JavaScript Logic -->
     <script>
-        // --- State Management ---
-        const state = {
-            persona: 'patient', // 'patient' or 'general'
-            constraints: [],
-            streakLevel: 0,
-            chartInstance: null,
-            notificationChartInstance: null
-        };
+        let selectedConstraint = null;
+        let chartInstance = null;
 
-        // --- Data: Constraint Logic (Micro-Step Generator) ---
-        const microStepLogic = {
-            'hbp': {
-                'budget': { title: "ปรุงเองประหยัดกว่า", desc: "ซื้อผักสดจากตลาดมาลวกกินกับน้ำพริก แทนการซื้อแกงถุงที่มีโซเดียมสูง", benefit: "ลดโซเดียม 40% + ประหยัด 20 บาท" },
-                'time': { title: "สั่งลดเค็ม", desc: "สั่งเมนูประจำร้านเดิม แต่กำชับว่า 'ไม่ใส่น้ำปลา/ผงชูรสเพิ่ม'", benefit: "ใช้เวลาเท่าเดิม + ความดันคุมได้" },
-                'space': { title: "ขยับที่โต๊ะ", desc: "แกว่งแขนเบาๆ ขณะนั่งดูทีวี 15 นาที", benefit: "ลดความดันโลหิต + ไม่ใช้พื้นที่" },
-                'social': { title: "เลี้ยงฉลาดเลือก", desc: "ในงานเลี้ยง เลือกตักเฉพาะกับข้าวที่ไม่มีน้ำราด (แกงจืด/ย่าง)", benefit: "เข้าสังคมได้ปกติ + โซเดียมไม่เกิน" }
-            },
-            'diabetes': {
-                'budget': { title: "ไข่ต้มเซเว่น", desc: "หิวบ่าย? ซื้อไข่ต้ม 1 ฟองแทนขนมปังหรือชานม", benefit: "โปรตีนสูง + น้ำตาล 0g + ราคาถูก" },
-                'time': { title: "กาแฟดำไม่หวาน", desc: "เปลี่ยนจากลาเต้เป็นอเมริกาโน่เย็น ไม่ใส่น้ำตาลเลย", benefit: "สดชื่นเหมือนเดิม + ตัดน้ำตาล 100%" },
-                'space': { title: "สควอทหน้าทีวี", desc: "ลุกนั่ง (Squat) 20 ครั้ง ระหว่างรอโฆษณา", benefit: "กระตุ้นการใช้น้ำตาลของกล้ามเนื้อ" },
-                'social': { title: "ดื่มน้ำเปล่า", desc: "ในวงปาร์ตี้ ดื่มน้ำเปล่าสลับกับเครื่องดื่มหวาน", benefit: "ลดปริมาณน้ำตาลโดยรวมลง 50%" }
-            },
-            'weight': { // General User
-                'budget': { title: "เดินกลับบ้าน", desc: "ลงรถเมล์ก่อนถึงบ้าน 1 ป้าย แล้วเดินต่อ", benefit: "ประหยัดค่ามอไซค์ + เผาผลาญ 50 kcal" },
-                'time': { title: "บันไดหนีไฟ", desc: "ขึ้นออฟฟิศชั้น 3-4 ด้วยบันไดแทนลิฟต์", benefit: "ไม่เสียเวลารอลิฟต์ + กระชับต้นขา" },
-                'space': { title: "Plank ข้างเตียง", desc: "ทำ Plank 1 นาทีก่อนนอน", benefit: "ใช้พื้นที่แค่ตัวนอน + แกนกลางแข็งแรง" },
-                'social': { title: "แชร์ขนม", desc: "สั่งเค้กมา 1 ชิ้น แบ่งกันกิน 3 คน", benefit: "ได้ชิมรสชาติ + แคลอรี่หารสาม" }
-            },
-            'office': { // General User
-                'budget': { title: "ยืดเหยียดฟรี", desc: "ใช้ขอบโต๊ะทำงานยืดน่องและหลัง", benefit: "แก้ปวดหลังฟรี ไม่ต้องไปนวด" },
-                'time': { title: "ประชุมยืน", desc: "เสนอให้ยืนประชุมสั้นๆ 10 นาที", benefit: "ประชุมจบเร็วขึ้น + ได้ขยับร่างกาย" },
-                'space': { title: "หมุนคอ", desc: "บริหารคอ ซ้าย-ขวา 10 ครั้ง บนเก้าอี้ทำงาน", benefit: "ลดออฟฟิศซินโดรมทันที" },
-                'social': { title: "ชวนเพื่อนเดิน", desc: "ชวนเพื่อนร่วมงานเดินไปกินข้าวร้านที่ไกลออกไปอีกนิด", benefit: "กระชับมิตร + เพิ่มก้าวเดิน" }
-            }
-        };
+        function switchMainTab(tabId) {
+            document.getElementById('section-microstep').classList.add('hidden');
+            document.getElementById('section-success').classList.add('hidden');
+            document.getElementById('section-clinical').classList.add('hidden');
+            
+            const buttons = document.querySelectorAll('.main-tab-btn');
+            buttons.forEach(btn => btn.classList.remove('main-tab-active'));
 
-        // --- Function 1: Concept Visualizer (Equality Engine) ---
-        function setPersona(type) {
-            state.persona = type;
-            
-            // Update UI Buttons
-            const btnP = document.getElementById('btn-patient');
-            const btnG = document.getElementById('btn-general');
-            const resultP = document.getElementById('persona-result');
-            const constraintDiv = document.getElementById('persona-constraints');
-            
-            if (type === 'patient') {
-                btnP.classList.remove('border-transparent', 'opacity-60');
-                btnP.classList.add('border-teal-500', 'shadow-md');
-                btnG.classList.add('border-transparent', 'opacity-60');
-                btnG.classList.remove('border-teal-500', 'shadow-md');
-                
-                // Content
-                constraintDiv.innerHTML = `
-                    <span class="px-2 py-1 bg-stone-800 text-white rounded text-xs">โรคเบาหวาน (Health)</span>
-                    <span class="px-2 py-1 bg-stone-200 text-stone-600 rounded text-xs">งบน้อย (Budget)</span>
-                `;
-                resultP.innerHTML = `<span class="text-teal-600 font-bold">Action:</span> "ซื้อแกงถุงร้านเดิม แต่เลือกเมนูต้มจืดเต้าหู้ และไม่ราดน้ำแกงลงบนข้าว"`;
-            } else {
-                btnG.classList.remove('border-transparent', 'opacity-60');
-                btnG.classList.add('border-orange-500', 'shadow-md', 'bg-orange-50');
-                btnG.style.borderColor = '#f97316'; // orange-500
-                btnP.classList.add('border-transparent', 'opacity-60');
-                btnP.classList.remove('border-teal-500', 'shadow-md');
-                
-                // Content
-                constraintDiv.innerHTML = `
-                    <span class="px-2 py-1 bg-stone-800 text-white rounded text-xs">ไม่มีเวลา (Time)</span>
-                    <span class="px-2 py-1 bg-stone-200 text-stone-600 rounded text-xs">ออฟฟิศซินโดรม (Health)</span>
-                `;
-                resultP.innerHTML = `<span class="text-teal-600 font-bold">Action:</span> "ตั้งนาฬิกาเตือนทุก 1 ชม. เพื่อลุกขึ้นยืดเหยียดข้างโต๊ะ 30 วินาที"`;
+            document.getElementById('section-' + tabId).classList.remove('hidden');
+            document.getElementById('btn-main-' + tabId).classList.add('main-tab-active');
+
+            if (tabId === 'success' && chartInstance) {
+                setTimeout(() => chartInstance.resize(), 100);
             }
         }
 
-        // --- Function 2: Micro-Step Generator Logic ---
-        function toggleConstraint(btn, type) {
-            // Simple visual toggle for simulation
-            const allBtns = document.querySelectorAll('.constraint-btn');
-            allBtns.forEach(b => {
-                b.classList.remove('bg-stone-800', 'text-white', 'border-transparent');
-                b.classList.add('text-stone-600', 'border-stone-200');
+        function selectConstraint(btn, type) {
+            document.querySelectorAll('.constraint-chip').forEach(b => {
+                b.classList.remove('bg-teal-600', 'text-white', 'border-transparent');
+                b.classList.add('text-gray-600', 'border-gray-200');
             });
-            
-            // Select clicked
-            btn.classList.remove('text-stone-600', 'border-stone-200');
-            btn.classList.add('bg-stone-800', 'text-white', 'border-transparent');
-            
-            // Store single constraint for this demo simplicity
-            state.constraints = [type];
+            btn.classList.remove('text-gray-600', 'border-gray-200');
+            btn.classList.add('bg-teal-600', 'text-white', 'border-transparent');
+            selectedConstraint = type;
         }
 
-        function generateMicroStep() {
-            const healthType = document.getElementById('sim-health').value;
-            const constraint = state.constraints.length > 0 ? state.constraints[0] : 'time'; // Default to time if none selected
+        function generateMission() {
+            const profile = document.getElementById('user-profile').value;
+            const constraint = selectedConstraint || 'time';
             
-            // Get Logic
-            let data = microStepLogic[healthType] && microStepLogic[healthType][constraint];
+            // Logic database updated to match new options
+            const missions = {
+                'diabetes': {
+                    'cook': { text: "สั่งข้าวราดแกง เน้นผักและโปรตีน งดแกงกะทิและของทอด", benefit: "คุมน้ำตาลได้แม้ไม่ได้ทำอาหารเอง" },
+                    'time': { text: "ดื่มน้ำเปล่า 1 แก้วใหญ่ทันทีหลังตื่นนอน", benefit: "ช่วยระบบเผาผลาญในเวลาไม่ถึงนาที" },
+                    'space': { text: "ลุกนั่ง (Squat) ข้างเก้าอี้ 15 ครั้ง", benefit: "กระตุ้นกล้ามเนื้อดึงน้ำตาลไปใช้" },
+                    'energy': { text: "เดินรอบบ้านหรือที่พัก 5 นาทีหลังมื้ออาหาร", benefit: "ช่วยลดระดับน้ำตาลหลังกินข้าว" }
+                },
+                'hbp': {
+                    'cook': { text: "สั่งก๋วยเตี๋ยว 'ไม่ใส่น้ำซุป' หรือ 'ไม่ปรุงเพิ่ม'", benefit: "ลดปริมาณโซเดียมได้มหาศาล" },
+                    'time': { text: "ฝึกหายใจเข้า-ออกลึกๆ 10 รอบ", benefit: "ช่วยให้หลอดเลือดคลายตัว ลดความดัน" },
+                    'space': { text: "แกว่งแขน 10 นาที ขณะดูโทรทัศน์หรือฟังเพลง", benefit: "ลดความดันโลหิตและกระตุ้นการไหลเวียน" },
+                    'energy': { text: "แช่เท้าในน้ำอุ่นก่อนนอน 10 นาที", benefit: "ผ่อนคลายระบบประสาท ลดความดันโลหิต" }
+                },
+                'cvd': {
+                    'cook': { text: "เลือกทานปลาหรืออกไก่ แทนเนื้อติดมันในการสั่งอาหาร", benefit: "ลดไขมันอิ่มตัว ป้องกันหลอดเลือดอุดตัน" },
+                    'time': { text: "ลุกขึ้นยืนและบิดตัวทุกๆ 1 ชั่วโมงที่นั่งทำงาน", benefit: "ลดการคั่งของเลือดในหลอดเลือดดำ" },
+                    'space': { text: "ยืดเหยียดกล้ามเนื้อทั่วตัวบนเตียงนอน", benefit: "เพิ่มความยืดหยุ่นของหลอดเลือด" },
+                    'energy': { text: "งดเล่นมือถือก่อนนอน 30 นาที เพื่อการพักผ่อนที่มีคุณภาพ", benefit: "ลดความเครียดของหัวใจ" }
+                },
+                'none': {
+                    'cook': { text: "เน้นทานผักครึ่งหนึ่งของจานในทุกมื้อ", benefit: "รักษาสมดุลร่างกายและเพิ่มกากใย" },
+                    'time': { text: "ขึ้นบันไดแทนการใช้ลิฟต์อย่างน้อย 2 ชั้น", benefit: "บริหารหัวใจในชีวิตประจำวัน" },
+                    'space': { text: "Plank 1 นาทีในห้องนอน", benefit: "สร้างความแข็งแรงของแกนกลางลำตัว" },
+                    'energy': { text: "อาบน้ำอุ่นสลับเย็นเพื่อกระตุ้นระบบไหลเวียน", benefit: "เพิ่มความสดชื่นและภูมิคุ้มกัน" }
+                }
+            };
             
-            // Fallback logic if specific combo missing
-            if (!data) {
-                data = { title: "ปรับพฤติกรรมเล็กน้อย", desc: "ลองเดินให้มากขึ้นอีกนิดในวันนี้", benefit: "เผาผลาญพลังงานเพิ่มขึ้น" };
-            }
+            let data = missions[profile] && missions[profile][constraint];
+            if(!data) data = { text: "เดินเพิ่มขึ้น 500 ก้าวในวันนี้", benefit: "เผาผลาญพลังงานพื้นฐาน" };
 
-            // Render
-            const card = document.getElementById('result-card');
-            const title = document.getElementById('mission-title');
-            const desc = document.getElementById('mission-desc');
-            const benefit = document.getElementById('mission-benefit');
+            const resultDiv = document.getElementById('mission-result');
+            resultDiv.classList.remove('hidden', 'scale-95', 'opacity-0');
+            resultDiv.classList.add('scale-100', 'opacity-100');
             
-            // Hide first to animate
-            card.classList.add('hidden', 'opacity-0', 'translate-y-4');
-            
-            setTimeout(() => {
-                title.textContent = data.title;
-                desc.textContent = data.desc;
-                benefit.textContent = data.benefit;
-                
-                card.classList.remove('hidden');
-                // Trigger reflow
-                void card.offsetWidth; 
-                card.classList.remove('opacity-0', 'translate-y-4');
-            }, 200);
+            document.getElementById('mission-text').textContent = data.text;
+            document.getElementById('mission-benefit').textContent = data.benefit;
         }
 
-        // --- Function 3: Chart.js Visualizations ---
-        function initCharts() {
-            // 1. Success Chart (Line)
-            const ctx1 = document.getElementById('successChart').getContext('2d');
-            state.chartInstance = new Chart(ctx1, {
+        function initChart() {
+            const ctx = document.getElementById('consistencyChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
                     datasets: [{
-                        label: 'Consistency Score (%)',
-                        data: [0, 0, 0, 0, 0, 0, 0], // Initial empty
-                        borderColor: '#0d9488', // teal-600
-                        backgroundColor: 'rgba(13, 148, 136, 0.1)',
+                        label: 'Success Score',
+                        data: [65, 70, 80, 85, 82, 90, 95],
+                        borderColor: '#f97316',
+                        backgroundColor: 'rgba(249, 115, 22, 0.1)',
                         borderWidth: 3,
                         tension: 0.4,
                         fill: true,
                         pointBackgroundColor: '#fff',
-                        pointBorderColor: '#0d9488',
+                        pointBorderWidth: 2,
                         pointRadius: 5
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 100,
-                            grid: { display: false }
-                        },
-                        x: {
-                            grid: { display: false }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return 'Success: ' + context.parsed.y + '%';
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            // 2. Notification Chart (Bar)
-            const ctx2 = document.getElementById('notificationChart').getContext('2d');
-            state.notificationChartInstance = new Chart(ctx2, {
-                type: 'bar',
-                data: {
-                    labels: ['แอปทั่วไป', 'AI Health Choice'],
-                    datasets: [{
-                        label: 'Notifications / Month',
-                        data: [120, 4], // Contrast data
-                        backgroundColor: ['#d6d3d1', '#f97316'], // stone-300 vs orange-500
-                        borderRadius: 6,
-                        barPercentage: 0.6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y', // Horizontal bar
-                    scales: {
-                        x: {
-                            grid: { display: false },
-                            display: false
-                        },
-                        y: {
-                            grid: { display: false }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: true }
+                        y: { display: true, min: 50, max: 100 },
+                        x: { grid: { display: false } }
                     }
                 }
             });
         }
 
-        function updateChart(week) {
-            let dataPoints = [];
-            let insight = "";
-            let level = "";
-            let streakCount = 0;
+        function switchSubTab(tab) {
+            const contentDoc = document.getElementById('content-doctor');
+            const contentLab = document.getElementById('content-lab');
+            const btnDoc = document.getElementById('tab-doctor');
+            const btnLab = document.getElementById('tab-lab');
+            document.getElementById('appt-result').classList.add('hidden');
 
-            if (week === 1) {
-                dataPoints = [80, 85, 90, 80, 85, 90, 95];
-                insight = "\"เริ่มต้นได้ดีเยี่ยม! การคุมโซเดียมต่อเนื่อง 3 วันแรก ช่วยลดอาการบวมน้ำได้ทันที\"";
-                level = "Level 1: Beginner";
-                streakCount = 3;
-            } else if (week === 2) {
-                dataPoints = [90, 60, 50, 70, 80, 85, 90];
-                insight = "\"มีสะดุดเล็กน้อยกลางสัปดาห์ ไม่เป็นไร! AI ปรับภารกิจให้ง่ายขึ้นในวันพรุ่งนี้แล้ว\"";
-                level = "Level 1: Learner";
-                streakCount = 2;
-            } else if (week === 3) {
-                dataPoints = [85, 90, 95, 95, 100, 100, 100];
-                insight = "\"โมเมนตัมกำลังมา! หากรักษาเส้นกราฟนี้ได้อีก 1 สัปดาห์ ค่าน้ำตาลสะสมมีแนวโน้มลดลง 0.2%\"";
-                level = "Level 2: Achiever";
-                streakCount = 5;
+            if (tab === 'doctor') {
+                contentDoc.classList.remove('hidden');
+                contentLab.classList.add('hidden');
+                btnDoc.classList.add('tab-active');
+                btnDoc.classList.remove('tab-inactive');
+                btnLab.classList.add('tab-inactive');
+                btnLab.classList.remove('tab-active');
             } else {
-                dataPoints = [100, 100, 100, 100, 100, 100, 100];
-                insight = "\"ยอดเยี่ยม! พฤติกรรมนี้กลายเป็นนิสัยถาวรแล้ว ระบบกำลังปลดล็อก Challenge ระดับถัดไป\"";
-                level = "Level 3: Master";
-                streakCount = 7;
-            }
-
-            // Update Chart
-            state.chartInstance.data.datasets[0].data = dataPoints;
-            state.chartInstance.update();
-
-            // Update Text
-            document.getElementById('predictive-text').textContent = insight;
-            document.getElementById('level-badge').textContent = level;
-
-            // Update Streak Bars (Visual)
-            const streakContainer = document.getElementById('streak-container');
-            streakContainer.innerHTML = '';
-            for(let i=0; i<7; i++) {
-                const isActive = i < streakCount;
-                const div = document.createElement('div');
-                div.className = `w-3 h-8 rounded-sm transition-all duration-500 ${isActive ? 'bg-teal-500 shadow-[0_0_10px_rgba(20,184,166,0.6)]' : 'bg-stone-200'}`;
-                streakContainer.appendChild(div);
+                contentDoc.classList.add('hidden');
+                contentLab.classList.remove('hidden');
+                btnLab.classList.add('tab-active');
+                btnLab.classList.remove('tab-inactive');
+                btnDoc.classList.add('tab-inactive');
+                btnDoc.classList.remove('tab-active');
             }
         }
 
-        // Initialize on Load
-        window.addEventListener('DOMContentLoaded', () => {
-            initCharts();
-            setPersona('patient'); // Default state
-            // Pre-select first constraint button
-            const firstBtn = document.querySelector('.constraint-btn');
-            if(firstBtn) toggleConstraint(firstBtn, 'budget');
-        });
+        function calculateNextAppt(type) {
+            let lastDateInput, condition, intervalMonths, note, prep;
+            if (type === 'doctor') {
+                lastDateInput = document.getElementById('doc-last-date').value;
+                condition = document.getElementById('doc-condition').value;
+                if (!lastDateInput) return;
+                intervalMonths = condition === 'stable' ? 3 : (condition === 'unstable' ? 1 : 0.5);
+                note = "การติดตามผลโดย AI";
+                prep = "เตรียมข้อมูลสุขภาพเบื้องต้นมาด้วย";
+            } else {
+                lastDateInput = document.getElementById('lab-last-date').value;
+                if (!lastDateInput) return;
+                intervalMonths = 3;
+                note = "การเจาะเลือดติดตามผล";
+                prep = "งดน้ำและอาหารตามคำแนะนำแพทย์";
+            }
 
+            const nextDate = new Date(lastDateInput);
+            if (intervalMonths >= 1) nextDate.setMonth(nextDate.getMonth() + intervalMonths);
+            else nextDate.setDate(nextDate.getDate() + 14);
+
+            document.getElementById('appt-date-display').textContent = nextDate.toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+            document.getElementById('appt-note').textContent = note;
+            document.getElementById('appt-prep').textContent = prep;
+            document.getElementById('appt-result').classList.remove('hidden');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('doc-last-date').value = today;
+            document.getElementById('lab-last-date').value = today;
+            initChart();
+        });
     </script>
 </body>
 </html>
